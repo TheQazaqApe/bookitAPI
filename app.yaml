@@ -1,5 +1,5 @@
 runtime: nodejs12
 
 env_variables:
-  MONGO_URL: ""
+  MONGO_URL: "mongodb://readWrite:asdf123%40@34.66.139.106:27017/bookIt"
   PORT: "8080"

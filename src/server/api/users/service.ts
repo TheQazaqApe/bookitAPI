@@ -14,17 +14,14 @@ export async function SignIn(data: ISignIn) {
         phone: data.userName
     }).select('');
 
-    console.log({...user});
     if (!user) throw Errors.Unauthorized;
 
     // create a jwt token that is valid for 7 days
-    const token = jwt.sign({ sub: user.id }, SECRET, { expiresIn: '7d' });
-
-    const withToken = {token, ...user};
-    return omitPassword(user);
+    const token = jwt.sign({ sub: user._id }, SECRET, { expiresIn: '7d' });
+    return {token, phone: user.phone};
 }
 
 function omitPassword(user: IUser) {
-    delete user.password;
-    return user;
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
 }
